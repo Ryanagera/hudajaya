@@ -1,0 +1,20 @@
+{
+  "brand": {
+    "name": "SKF",
+    "tagline": "Too good to be replaced",
+    "description": "SKF is a leading global supplier of bearings, seals, and related products and services."
+  },
+  "navigation": {
+    "mainMenu": [
+      { "id": 1, "label": "Products", "path": "/products" },
+      { "id": 2, "label": "Services", "path": "/services" },
+      { "id": 3, "label": "About", "path": "/about" }
+    ]
+  },
+  "hero": {
+    "title": "TOO GOOD TO BE REPLACED",
+    "description": "You don't throw out a classic. You bring it back. Better. Same product. Same standards. No shortcuts.",
+    "ctaText": "Explore remanufacturing"
+  }
+}
+

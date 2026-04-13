@@ -1,6 +1,6 @@
-# Hudajaya - SKF Corporate Website
+# Hudajaya - Industrial Engineering Solution Company
 
-Aplikasi React modern untuk website korporat SKF dengan layered architecture yang terstruktur.
+Aplikasi React modern untuk website korporat Hudajaya dengan layered architecture yang terstruktur.
 
 ## 🚀 Fitur Utama
 

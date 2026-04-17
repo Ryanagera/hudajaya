@@ -149,7 +149,7 @@ function HeroContent() {
       {/* Main Title */}
       <div className="max-w-3xl ml-10">
         <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-wider drop-shadow-lg">
-          {HERO_CONTENT.title}
+          {/* {HERO_CONTENT.title} */}
         </h1>
       </div>
 

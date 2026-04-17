@@ -1,3 +1,9 @@
+import rubberRollImg from "@/assets/images/products/rubber_roll.jpg";
+import steelRollImg from "@/assets/images/products/steel_roll.jpg";
+import brushRollImg from "@/assets/images/products/brush_roll.png";
+import customSparePartImg from "@/assets/images/products/custom_spare_part.png";
+import laminatingMachineImg from "@/assets/images/products/laminating_machine.jpg";
+
 /**
  * Products Categories and Subcategories
  */
@@ -8,8 +14,8 @@ export const PRODUCT_CATEGORIES = [
     name: "Rubber Roll",
     slug: "rubber-roll",
     description: "High-quality rubber rolls for various applications",
-    icon: "🔘",
-    color: "bg-amber-50",
+    icon: rubberRollImg,
+    color: "bg-amber-50/0",
     products: [
       {
         id: 1,
@@ -84,8 +90,8 @@ export const PRODUCT_CATEGORIES = [
     name: "Steel Roll",
     slug: "steel-roll",
     description: "Durable steel rolls for industrial use",
-    icon: "🔩",
-    color: "bg-slate-50",
+    icon: steelRollImg,
+    color: "bg-slate-50/0",
     products: [
       {
         id: 1,
@@ -130,8 +136,8 @@ export const PRODUCT_CATEGORIES = [
     name: "Brush Roll",
     slug: "brush-roll",
     description: "Specialized brush rollers for cleaning and finishing",
-    icon: "🧹",
-    color: "bg-orange-50",
+    icon: brushRollImg,
+    color: "bg-orange-50/0",
     products: [
       {
         id: 1,
@@ -176,8 +182,8 @@ export const PRODUCT_CATEGORIES = [
     name: "Custom Spare Part",
     slug: "custom-spare-part",
     description: "Customized spare parts tailored to your needs",
-    icon: "🎁",
-    color: "bg-rose-50",
+    icon: customSparePartImg,
+    color: "bg-rose-50/0",
     products: [
       {
         id: 1,
@@ -222,8 +228,8 @@ export const PRODUCT_CATEGORIES = [
     name: "Mesin Laminating Polyester",
     slug: "mesin-laminating-polyester",
     description: "Advanced polyester laminating machinery",
-    icon: "🏭",
-    color: "bg-blue-50",
+    icon: laminatingMachineImg,
+    color: "bg-blue-50/0",
     products: [
       {
         id: 1,

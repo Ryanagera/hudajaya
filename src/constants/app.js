@@ -16,7 +16,6 @@ export const LOADING_CONFIG = {
 };
 
 export const VIDEO_CONFIG = {
-  SOURCE_PATH: "/clip1.mp4",
   MIME_TYPE: "video/mp4",
   MUTED: true,
   AUTO_PLAY: true,
@@ -29,6 +28,9 @@ export const ROUTES = {
   PRODUCTS: "/products",
   SERVICES: "/services",
   ABOUT: "/about",
+  CONTACT: "/contact",
+  QUOTE: "/contact/quote-request",
+  LOCATION: "/contact/find-location",
 };
 
 export const RESPONSIVE_BREAKPOINTS = {

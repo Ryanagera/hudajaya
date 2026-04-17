@@ -1,20 +1,14 @@
-import MainLayout from "@/layouts/MainLayout";
-import { Container } from "@/components/common";
+import { Container, PageLayout } from "@/components/common";
 
 export default function Services() {
   return (
-    <MainLayout>
-      <section className="mt-24 py-20 bg-gradien-to-b from-gray-50 to-white">
+    <PageLayout
+      title="Our Services"
+      subtitle="Comprehensive support and industrial solutions tailored to your professional needs."
+      breadcrumbs={[{ label: "Services" }]}
+    >
+      <section className="py-20 bg-white">
         <Container size="lg">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Our Services
-            </h1>
-            <p className="text-xl text-gray-600">
-              Comprehensive support and solutions tailored to your needs
-            </p>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
@@ -51,6 +45,6 @@ export default function Services() {
           </div>
         </Container>
       </section>
-    </MainLayout>
+    </PageLayout>
   );
 }

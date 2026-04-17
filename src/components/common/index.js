@@ -5,5 +5,17 @@ import Container from "./Container";
 import Card from "./Card";
 import LoadingPage from "./LoadingPage";
 import Sidebar from "./Sidebar";
+import ActionCard from "./ActionCard";
+import PageLayout from "./PageLayout";
 
-export { Button, Header, Footer, Container, Card, LoadingPage, Sidebar };
+export {
+  Button,
+  Header,
+  Footer,
+  Container,
+  Card,
+  LoadingPage,
+  Sidebar,
+  PageLayout,
+  ActionCard,
+};

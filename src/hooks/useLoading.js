@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 /**
  * Hook untuk manage loading state pada page load
  */
-export const useLoading = (duration = 2000) => {
+export default function useLoading(duration = 2000) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -16,6 +16,4 @@ export const useLoading = (duration = 2000) => {
   }, [duration]);
 
   return { isLoading };
-};
-
-export default useLoading;
+}

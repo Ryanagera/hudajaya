@@ -1,17 +1,17 @@
-import MainLayout from "@/layouts/MainLayout";
-import { Container, Button } from "@/components/common";
+import { Container, Button, PageLayout } from "@/components/common";
 
 export default function About() {
   return (
-    <MainLayout>
-      <section className="mt-24 py-20 bg-linear-to-b from-gray-50 to-white">
+    <PageLayout
+      title="About Huda Jaya"
+      subtitle="Leading global supplier of bearings, seals, and related products with a century of innovation."
+      breadcrumbs={[{ label: "About" }]}
+    >
+      <section className="py-20 bg-linear-to-b from-gray-50 to-white">
         <Container size="lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left - Content */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                About Huda Jaya
-              </h1>
               <p className="text-lg text-gray-600 mb-4">
                 SKF is a leading global supplier of bearings, seals, and related
                 products and services. For more than a century, we have been
@@ -48,6 +48,6 @@ export default function About() {
           </div>
         </Container>
       </section>
-    </MainLayout>
+    </PageLayout>
   );
 }

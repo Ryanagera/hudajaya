@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, Search } from "lucide-react";
 
 // Constants
@@ -12,14 +12,22 @@ import { PRODUCT_SEARCH_INDEX } from "@/constants/products";
 export default function SearchSidebar({ isOpen, onClose }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const inputRef = useRef(null);
 
-  // Handle body scroll locking when search sidebar is open
+  // Handle body scroll locking and auto-focus when search sidebar is open
   useEffect(() => {
     if (isOpen) {
       // Disable scroll
       document.body.style.overflow = "hidden";
+      
+      // Focus input after transition
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 500); // Wait for transition duration
+
       return () => {
         document.body.style.overflow = "unset";
+        clearTimeout(timer);
       };
     }
   }, [isOpen]);
@@ -42,6 +50,7 @@ export default function SearchSidebar({ isOpen, onClose }) {
   const handleClear = () => {
     setSearchQuery("");
     setSearchResults([]);
+    inputRef.current?.focus();
   };
 
   return (
@@ -57,8 +66,8 @@ export default function SearchSidebar({ isOpen, onClose }) {
 
       {/* Search Sidebar Container - slides from right */}
       <div
-        className={`fixed right-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-50 transition-transform duration-500 ease-in-out flex flex-col pt-20 px-10 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed right-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-50 transition-all duration-500 ease-in-out flex flex-col pt-20 px-10 ${
+          isOpen ? "translate-x-0 opacity-100 visible" : "translate-x-full opacity-0 invisible"
         }`}
         role="search"
         aria-label="Search sidebar"
@@ -82,6 +91,7 @@ export default function SearchSidebar({ isOpen, onClose }) {
             searchQuery={searchQuery}
             onSearch={handleSearch}
             onClear={handleClear}
+            inputRef={inputRef}
           />
 
           {/* Search Results Section */}
@@ -99,18 +109,18 @@ export default function SearchSidebar({ isOpen, onClose }) {
 /**
  * SearchInputSection Sub-Component
  */
-function SearchInputSection({ searchQuery, onSearch, onClear }) {
+function SearchInputSection({ searchQuery, onSearch, onClear, inputRef }) {
   return (
     <div className="border-b border-gray-200 p-1 pb-6">
       <div className="relative group">
         <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 group-hover:border-blue-400 group-focus-within:border-blue-500 transition-colors duration-200">
           <Search size={20} className="text-gray-400" />
           <input
+            ref={inputRef}
             type="text"
             placeholder="Search products, services, info..."
             value={searchQuery}
             onChange={onSearch}
-            autoFocus
             className="flex-1 bg-transparent text-gray-800 placeholder-gray-500 outline-none text-base"
           />
           {searchQuery && (

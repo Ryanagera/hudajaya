@@ -2,16 +2,20 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 // Pages
-import Home from "./pages/Home";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
+import FindLocation from "./pages/FindLocation";
+import Home from "./pages/Home";
 import Products from "./pages/Products";
+import QuoteRequest from "./pages/QuoteRequest";
 import Services from "./pages/Services";
 
 // Hooks
 import { useVideoPlayer } from "@/hooks/useVideoPlayer";
-import { useLoadingPage } from "@/hooks/useLoadingPage";
+import { useLoadingPage } from "./hooks/useLoadingPage";
 
-// Context
+// Context and assets
+import heroVideo from "@/assets/video/clip1.mp4";
 import { VideoContext } from "@/context/VideoContext";
 
 // Constants
@@ -63,7 +67,7 @@ export default function App() {
         onPlay={() => {}}
         onPause={() => {}}
       >
-        <source src={VIDEO_CONFIG.SOURCE_PATH} type={VIDEO_CONFIG.MIME_TYPE} />
+        <source src={heroVideo} type={VIDEO_CONFIG.MIME_TYPE} />
       </video>
 
       {/* Loading Page - Show only on first homepage visit */}
@@ -73,8 +77,11 @@ export default function App() {
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.ABOUT} element={<About />} />
+        <Route path={ROUTES.CONTACT} element={<Contact />} />
+        <Route path={ROUTES.QUOTE} element={<QuoteRequest />} />
         <Route path={ROUTES.PRODUCTS} element={<Products />} />
         <Route path={ROUTES.SERVICES} element={<Services />} />
+        <Route path={ROUTES.LOCATION} element={<FindLocation />} />
       </Routes>
     </VideoContext.Provider>
   );

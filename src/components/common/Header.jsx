@@ -1,7 +1,7 @@
+import { Globe, Grid3X3, Menu, Search, User, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Menu, X, Globe, Grid3X3, User, Search } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Hooks
 import { useScroll } from "@/hooks";
@@ -10,8 +10,8 @@ import { useScroll } from "@/hooks";
 import { NAV_ITEMS, ROUTES } from "@/constants";
 
 // Components
-import Sidebar from "./Sidebar";
 import SearchSidebar from "./SearchSidebar";
+import Sidebar from "./Sidebar";
 
 /**
  * Header Component
@@ -23,6 +23,11 @@ export default function Header() {
   const [shouldExpandProducts, setShouldExpandProducts] = useState(false);
   const location = useLocation();
   const { isScrolled } = useScroll();
+
+  // Helper + Derived State
+  const isActive = (path) => location.pathname === path;
+  const isHomePage = location.pathname === ROUTES.HOME;
+  const shouldHaveDarkHeader = !isHomePage || isScrolled;
 
   // Event Handler
   const toggleMenu = () => {
@@ -39,11 +44,6 @@ export default function Header() {
   const handleOverlayClick = () => {
     setIsMenuOpen(false);
   };
-
-  // Helper + Derived State
-  const isActive = (path) => location.pathname === path;
-  const isHomePage = location.pathname === ROUTES.HOME;
-  const shouldHaveDarkHeader = !isHomePage || isScrolled;
 
   // ✅ Body scroll lock using useEffect
   useEffect(() => {
@@ -222,6 +222,8 @@ function DesktopNavigation({
   );
 }
 
+import logoWhite from "@/assets/images/branding/logohj_white.png";
+
 /**
  * LogoSection Sub-Component
  */
@@ -230,7 +232,7 @@ function LogoSection({ shouldHaveDarkHeader }) {
     <div className="flex-1 flex justify-center">
       <Link to={ROUTES.HOME} className="h-12 flex items-center transition-all">
         <img
-          src="/logohj_white.png"
+          src={logoWhite}
           alt="Huda Jaya Logo"
           className={`h-full w-auto transition-all duration-300 ${
             shouldHaveDarkHeader ? "brightness-0 grayscale" : ""
@@ -247,46 +249,77 @@ function LogoSection({ shouldHaveDarkHeader }) {
 function TopNavigationItems({ shouldHaveDarkHeader, onSearchToggle }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const topNavItems = [
-    { icon: Globe, label: "Language", action: null },
-    { icon: Grid3X3, label: "Tools", action: null },
-    { icon: User, label: "Account", action: null },
-    { icon: Search, label: "Search", action: onSearchToggle },
+  const navItems = [
+    { icon: Globe, label: "Language", path: null },
+    { icon: Grid3X3, label: "Tools", path: null },
+    { icon: User, label: "Get in touch", path: ROUTES.CONTACT },
   ];
 
   return (
-    <div className="flex items-center gap-2">
-      {topNavItems.map((item, index) => (
-        <button
-          key={index}
-          onClick={() => item.action && item.action()}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          className={`relative px-3 py-2 rounded-lg transition-all duration-200 ${
-            index === 3 // Search button
-              ? hoveredIndex === index
-                ? shouldHaveDarkHeader
-                  ? "bg-blue-500/20 text-blue-600"
-                  : "bg-white/20 text-white"
-                : shouldHaveDarkHeader
-                  ? "text-gray-800 hover:text-blue-600"
-                  : "text-white hover:text-white"
-              : shouldHaveDarkHeader
-                ? "text-gray-800 hover:text-slate-600"
-                : "text-white hover:text-white/60"
-          }`}
-          aria-label={item.label}
-        >
-          <item.icon size={20} />
+    <div className="flex items-center gap-3">
+      {/* Action Icons */}
+      <div className="flex items-center gap-1">
+        {navItems.map((item, index) => {
+          const content = (
+            <>
+              <item.icon size={20} />
+              {/* Tooltip on hover */}
+              {hoveredIndex === index && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 translate-y-20 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap pointer-events-none z-50">
+                  {item.label}
+                </div>
+              )}
+            </>
+          );
 
-          {/* Tooltip on hover */}
-          {hoveredIndex === index && (
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 translate-y-20 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap pointer-events-none">
-              {item.label}
-            </div>
-          )}
-        </button>
-      ))}
+          const className = `relative px-3 py-2 rounded-lg transition-all duration-200 ${
+            shouldHaveDarkHeader
+              ? "text-gray-800 hover:text-slate-600 hover:bg-black/5"
+              : "text-white hover:text-white/60 hover:bg-white/10"
+          }`;
+
+          return item.path ? (
+            <Link
+              key={index}
+              to={item.path}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className={className}
+              aria-label={item.label}
+            >
+              {content}
+            </Link>
+          ) : (
+            <button
+              key={index}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className={className}
+              aria-label={item.label}
+            >
+              {content}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Pill Search Bar */}
+      <button
+        onClick={onSearchToggle}
+        className={`flex items-center gap-4 px-5 py-2.5 rounded-full border transition-all duration-300 group min-w-48 ${
+          shouldHaveDarkHeader
+            ? "border-gray-300 bg-white/40 text-gray-700 hover:border-gray-500 hover:bg-white/60 hover:shadow-sm"
+            : "border-white/30 bg-white/10 text-white hover:border-white/60 hover:bg-white/20"
+        }`}
+      >
+        <Search
+          size={18}
+          className="transition-transform duration-300 group-hover:scale-110"
+        />
+        <span className="text-sm font-light tracking-wide opacity-80 group-hover:opacity-100">
+          Search...
+        </span>
+      </button>
     </div>
   );
 }

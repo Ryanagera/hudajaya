@@ -1,29 +1,15 @@
-import MainLayout from "@/layouts/MainLayout";
-import { Container } from "@/components/common";
+import { Container, PageLayout, ActionCard } from "@/components/common";
 import { PRODUCT_CATEGORIES } from "@/constants/products";
 
 export default function Products() {
   return (
-    <MainLayout>
-      {/* Hero Section */}
-      <section className="mt-24 py-20 bg-blue-600 text-white">
-        <Container size="lg">
-          <div className="mb-8">
-            <div className="flex items-center gap-2 text-blue-100 mb-6">
-              <span>Home</span>
-              <span>/</span>
-              <span>Products</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-light mb-6">Products</h1>
-            <p className="text-xl text-blue-50 max-w-2xl">
-              Discover the SKF product assortment
-            </p>
-          </div>
-        </Container>
-      </section>
-
+    <PageLayout
+      title="Products"
+      subtitle="Discover the Hudajaya product."
+      breadcrumbs={[{ label: "Products" }]}
+    >
       {/* Products Section */}
-      <section className="py-20 bg-white">
+      <section className="py-4 bg-white">
         <Container size="lg">
           <div className="mb-16">
             <h2 className="text-3xl font-light text-gray-900 mb-4">
@@ -40,53 +26,42 @@ export default function Products() {
           {/* Categories Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {PRODUCT_CATEGORIES.map((category) => (
-              <div
+              <ActionCard
                 key={category.id}
-                className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"
+                image={category.icon}
+                title={category.name}
+                buttonText="View all products"
+                onButtonClick={() => {}}
               >
-                {/* Category Header */}
-                <div className={`p-8 ${category.color}`}>
-                  <div className="text-5xl mb-4">{category.icon}</div>
-                  <h3 className="text-2xl font-light text-gray-900">
-                    {category.name}
-                  </h3>
-                </div>
-
-                {/* Category Content */}
-                <div className="p-8">
-                  <p className="text-gray-600 mb-6">{category.description}</p>
-
-                  {/* Quick Links */}
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-4">
-                      Popular products
+                {/* Quick Links */}
+                <div className="space-y-3">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">
+                    Popular products
+                  </p>
+                  {category.products.slice(0, 2).map((product, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors group/item"
+                    >
+                      <span className="text-lg grayscale group-hover/item:grayscale-0 transition-all">
+                        {product.icon}
+                      </span>
+                      <span className="text-sm font-medium">
+                        {product.name}
+                      </span>
+                    </div>
+                  ))}
+                  {category.products.length > 2 && (
+                    <p className="text-[10px] font-bold text-blue-600 mt-4 pt-4 border-t border-gray-50 uppercase tracking-widest">
+                      +{category.products.length - 2} more products
                     </p>
-                    {category.products.slice(0, 3).map((product, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
-                      >
-                        <span className="text-xl">{product.icon}</span>
-                        <span className="text-sm">{product.name}</span>
-                      </div>
-                    ))}
-                    {category.products.length > 3 && (
-                      <p className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-200">
-                        +{category.products.length - 3} more products
-                      </p>
-                    )}
-                  </div>
-
-                  {/* View All Link */}
-                  <button className="mt-6 w-full px-4 py-2 text-center text-blue-600 hover:text-blue-700 font-light border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
-                    View all products →
-                  </button>
+                  )}
                 </div>
-              </div>
+              </ActionCard>
             ))}
           </div>
         </Container>
       </section>
-    </MainLayout>
+    </PageLayout>
   );
 }

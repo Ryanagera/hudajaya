@@ -248,9 +248,13 @@ function ProductCategories({ onCategorySelect, onBackToMenu }) {
             >
               {/* Icon with background */}
               <div
-                className={`shrink-0 w-12 h-12 rounded-lg ${category.color} flex items-center justify-center text-2xl`}
+                className={`shrink-0 w-12 h-12 rounded-lg ${category.color} flex items-center justify-center text-2xl overflow-hidden`}
               >
-                {category.icon}
+                {typeof category.icon === "string" && category.icon.length > 10 ? (
+                  <img src={category.icon} alt={category.name} className="w-full h-full object-cover" />
+                ) : (
+                  category.icon
+                )}
               </div>
 
               {/* Content */}

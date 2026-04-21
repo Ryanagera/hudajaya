@@ -14,19 +14,15 @@ export default function SearchSidebar({ isOpen, onClose }) {
   const [searchResults, setSearchResults] = useState([]);
   const inputRef = useRef(null);
 
-  // Handle body scroll locking and auto-focus when search sidebar is open
+  // Handle auto-focus when search sidebar is open
   useEffect(() => {
     if (isOpen) {
-      // Disable scroll
-      document.body.style.overflow = "hidden";
-      
       // Focus input after transition
       const timer = setTimeout(() => {
         inputRef.current?.focus();
       }, 500); // Wait for transition duration
 
       return () => {
-        document.body.style.overflow = "unset";
         clearTimeout(timer);
       };
     }
@@ -55,18 +51,9 @@ export default function SearchSidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
-      {isOpen && (
-        <div
-          className={`fixed inset-0 ${SIDEBAR_CONFIG.OVERLAY_OPACITY} ${SIDEBAR_CONFIG.Z_INDEX} transition-opacity duration-300`}
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
-
       {/* Search Sidebar Container - slides from right */}
       <div
-        className={`fixed right-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-50 transition-all duration-500 ease-in-out flex flex-col pt-20 px-10 ${
+        className={`fixed right-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-[60] transition-all duration-500 ease-in-out flex flex-col pt-20 px-10 ${
           isOpen ? "translate-x-0 opacity-100 visible" : "translate-x-full opacity-0 invisible"
         }`}
         role="search"

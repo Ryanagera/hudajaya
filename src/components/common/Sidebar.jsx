@@ -30,6 +30,7 @@ export default function Sidebar({
   const [expandedMenu, setExpandedMenu] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const prevIsOpenRef = useRef(isOpen);
+  const closeButtonRef = useRef(null);
 
   useEffect(() => {
     // Only reset state when sidebar transitions from closed to open
@@ -49,16 +50,18 @@ export default function Sidebar({
     prevIsOpenRef.current = isOpen;
   }, [isOpen, shouldExpandProducts, onProductsExpanded]);
 
-  // Handle body scroll locking when sidebar is open
+  // Handle auto-focus when sidebar opens
   useEffect(() => {
     if (isOpen) {
-      // Disable scroll
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "unset";
-      };
+      // Small delay to ensure the transition has started or finished
+      const timer = setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
+
+
 
   const handleMenuToggle = (menuId) => {
     setExpandedMenu(expandedMenu === menuId ? null : menuId);
@@ -75,18 +78,11 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Backdrop */}
-      {isOpen && (
-        <div
-          className={`fixed inset-0 ${SIDEBAR_CONFIG.OVERLAY_OPACITY} ${SIDEBAR_CONFIG.Z_INDEX} transition-opacity duration-300`}
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
+
 
       {/* Sidebar Container */}
       <div
-        className={`fixed left-0 top-0 h-screen w-full md:max-w-xl bg-white shadow-2xl z-50 transition-transform duration-500 ease-in-out flex flex-col pt-16 md:pt-20 px-6 md:pl-20 md:pr-10 ${
+        className={`fixed left-0 top-0 h-screen w-full md:max-w-xl bg-white shadow-2xl z-[60] transition-transform duration-500 ease-in-out flex flex-col pt-16 md:pt-20 px-6 md:pl-20 md:pr-10 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="navigation"
@@ -94,7 +90,7 @@ export default function Sidebar({
         aria-hidden={!isOpen}
       >
         {/* Close Button */}
-        {isOpen && <CloseButton onClose={onClose} />}
+        {isOpen && <CloseButton onClose={onClose} buttonRef={closeButtonRef} />}
 
         {/* Content */}
         <SidebarContent
@@ -113,9 +109,10 @@ export default function Sidebar({
 /**
  * CloseButton Sub-Component
  */
-function CloseButton({ onClose }) {
+function CloseButton({ onClose, buttonRef }) {
   return (
     <button
+      ref={buttonRef}
       onClick={onClose}
       className="absolute right-4 top-4 md:fixed md:right-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md z-[60]"
       aria-label="Close sidebar"

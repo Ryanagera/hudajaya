@@ -35,32 +35,51 @@ export default function Header() {
     setShouldExpandProducts(true);
     setIsMenuOpen(true);
   };
-  // Close menu when clicking overlay
+  // Close everything when clicking overlay
   const handleOverlayClick = () => {
     setIsMenuOpen(false);
+    setIsSearchOpen(false);
   };
 
-  // Body scroll lock using useEffect
+  // Body scroll lock and accessibility using useEffect
   useEffect(() => {
-    if (isMenuOpen) {
-      // Disable scroll when menu is open
+    const mainElement = document.querySelector("main");
+    const headerElement = document.querySelector("header");
+    const footerElement = document.querySelector("footer");
+
+    if (isMenuOpen || isSearchOpen) {
+      // Disable scroll on both body and html
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+
+      // Prevent interaction with all background elements
+      if (mainElement) mainElement.setAttribute("inert", "");
+      if (headerElement) headerElement.setAttribute("inert", "");
+      if (footerElement) footerElement.setAttribute("inert", "");
     } else {
-      // Enable scroll when menu is closed
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+
+      if (mainElement) mainElement.removeAttribute("inert");
+      if (headerElement) headerElement.removeAttribute("inert");
+      if (footerElement) footerElement.removeAttribute("inert");
     }
-    // Cleanup: restore scroll on unmount or state change
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (mainElement) mainElement.removeAttribute("inert");
+      if (headerElement) headerElement.removeAttribute("inert");
+      if (footerElement) footerElement.removeAttribute("inert");
     };
-  }, [isMenuOpen, isSearchOpen]); // Runs when isMenuOpen changes
+  }, [isMenuOpen, isSearchOpen]);
 
   return (
     <>
-      {isMenuOpen &&
+      {(isMenuOpen || isSearchOpen) &&
         createPortal(
           <div
-            className="fixed inset-0 bg-black/35 z-30 transition-opacity duration-200"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300"
             onClick={handleOverlayClick}
             aria-hidden="true"
           />,
@@ -68,15 +87,17 @@ export default function Header() {
         )}
 
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           shouldHaveDarkHeader
-            ? "bg-white/95 backdrop-blur-md shadow-md"
+            ? "bg-white/50 backdrop-blur-md shadow-md"
             : "bg-transparent"
         }`}
       >
         <nav
           className={`mx-auto transition-all duration-300 ${
-            shouldHaveDarkHeader ? "px-4 md:px-6 xl:px-10" : "p-4 md:px-6 xl:px-10"
+            shouldHaveDarkHeader
+              ? "px-4 md:px-6 xl:px-10"
+              : "p-4 md:px-6 xl:px-10"
           }`}
         >
           <HeaderLayout
@@ -89,20 +110,21 @@ export default function Header() {
           />
         </nav>
 
-        {/* Sidebar Menu */}
-        <Sidebar
-          isOpen={isMenuOpen}
-          onClose={() => setIsMenuOpen(false)}
-          shouldExpandProducts={shouldExpandProducts}
-          onProductsExpanded={() => setShouldExpandProducts(false)}
-        />
-
-        {/* Search Sidebar */}
-        <SearchSidebar
-          isOpen={isSearchOpen}
-          onClose={() => setIsSearchOpen(false)}
-        />
       </header>
+
+      {/* Sidebar Menu - Rendered outside header to manage stacking */}
+      <Sidebar
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        shouldExpandProducts={shouldExpandProducts}
+        onProductsExpanded={() => setShouldExpandProducts(false)}
+      />
+
+      {/* Search Sidebar - Rendered outside header to manage stacking */}
+      <SearchSidebar
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }

@@ -10,7 +10,6 @@ import Sidebar from "./Sidebar";
 
 /**
  * Header Component
- * Fixed navigation header with hamburger menu
  */
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -79,7 +78,7 @@ export default function Header() {
       {(isMenuOpen || isSearchOpen) &&
         createPortal(
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300"
+            className="fixed inset-0 bg-black/5 backdrop-blur-xs z-50 transition-opacity duration-300"
             onClick={handleOverlayClick}
             aria-hidden="true"
           />,
@@ -89,7 +88,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           shouldHaveDarkHeader
-            ? "bg-white/50 backdrop-blur-md shadow-md"
+            ? "bg-white/50 backdrop-blur-sm shadow-md"
             : "bg-transparent"
         }`}
       >

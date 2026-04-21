@@ -86,7 +86,7 @@ export default function Sidebar({
 
       {/* Sidebar Container */}
       <div
-        className={`fixed left-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-50 transition-transform duration-500 ease-in-out flex flex-col pt-20 pl-20 pr-10 ${
+        className={`fixed left-0 top-0 h-screen w-full md:max-w-xl bg-white shadow-2xl z-50 transition-transform duration-500 ease-in-out flex flex-col pt-16 md:pt-20 px-6 md:pl-20 md:pr-10 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="navigation"
@@ -117,10 +117,10 @@ function CloseButton({ onClose }) {
   return (
     <button
       onClick={onClose}
-      className="fixed right-0 top-1/2 -translate-y-1/2 translate-x-6 w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md"
+      className="absolute right-4 top-4 md:fixed md:right-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md z-[60]"
       aria-label="Close sidebar"
     >
-      <X size={24} className="text-gray-800" />
+      <X size={20} className="md:w-6 md:h-6 text-gray-800" />
     </button>
   );
 }
@@ -176,17 +176,17 @@ function SidebarContent({
 function MainItems({ onMenuToggle, onClose }) {
   return (
     <div className="p-1">
-      <div className="space-y-12">
+      <div className="space-y-8 md:space-y-12">
         {SIDEBAR_MAIN_ITEMS.map((item) => (
           <div key={item.id}>
             {item.expandable ? (
               <button
                 onClick={() => onMenuToggle(item.id)}
-                className="w-full flex items-center justify-between text-5xl font-light text-gray-900 hover:text-blue-600 transition-colors duration-200 group"
+                className="w-full flex items-center justify-between text-3xl md:text-5xl font-light text-gray-900 hover:text-blue-600 transition-colors duration-200 group"
               >
                 <span>{item.label}</span>
                 <ChevronRight
-                  size={24}
+                  size={20}
                   className="text-gray-400 group-hover:text-blue-600 transition-colors"
                 />
               </button>
@@ -194,7 +194,7 @@ function MainItems({ onMenuToggle, onClose }) {
               <Link
                 to={item.path}
                 onClick={onClose}
-                className="flex items-center justify-between text-5xl font-light text-gray-900 hover:text-blue-600 transition-colors duration-200 group"
+                className="flex items-center justify-between text-3xl md:text-5xl font-light text-gray-900 hover:text-blue-600 transition-colors duration-200 group"
               >
                 <span>{item.label}</span>
               </Link>
@@ -230,7 +230,7 @@ function ProductCategories({ onCategorySelect, onBackToMenu }) {
           <h2 className="text-2xl font-light text-gray-900 flex-1">Products</h2>
           <button
             onClick={() => navigate("/products")}
-            className="text-sm font-light text-gray-600 hover:text-blue-600 pb-2 border-b-2 border-transparent hover:border-blue-600 transition-all"
+            className="text-md font-light text-gray-600 hover:text-blue-600 pb-2 border-b-2 border-transparent hover:border-blue-600 transition-all"
           >
             Overview
           </button>
@@ -250,8 +250,13 @@ function ProductCategories({ onCategorySelect, onBackToMenu }) {
               <div
                 className={`shrink-0 w-12 h-12 rounded-lg ${category.color} flex items-center justify-center text-2xl overflow-hidden`}
               >
-                {typeof category.icon === "string" && category.icon.length > 10 ? (
-                  <img src={category.icon} alt={category.name} className="w-full h-full object-cover" />
+                {typeof category.icon === "string" &&
+                category.icon.length > 10 ? (
+                  <img
+                    src={category.icon}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   category.icon
                 )}

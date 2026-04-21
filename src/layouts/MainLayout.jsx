@@ -1,4 +1,4 @@
-import { Header, Footer } from "@/components/common";
+import { Header, Footer } from "../components/common";
 
 export default function MainLayout({ children }) {
   return (

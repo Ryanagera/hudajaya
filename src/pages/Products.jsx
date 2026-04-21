@@ -12,14 +12,11 @@ export default function Products() {
       <section className="py-4 bg-white">
         <Container size="lg">
           <div className="mb-16">
-            <h2 className="text-3xl font-light text-gray-900 mb-4">
-              Discover the SKF product assortment
+            <h2 className="text-3xl md:text-5xl font-black text-[#001D3D] mb-6">
+              Industrial Precision Roller Solutions
             </h2>
-            <p className="text-lg text-gray-600">
-              Our products can be found literally anywhere in society. In fact,
-              wherever there is rotation there might be SKF bearings, seals and
-              lubrication systems at work, with the support of our condition
-              monitoring and maintenance services.
+            <p className="text-lg text-gray-600 font-light leading-relaxed max-w-4xl">
+              CV. Huda Jaya adalah pemimpin industri dalam pembuatan dan perbaikan Rubber Roll, Steel Roll, serta komponen presisi lainnya. Produk kami digunakan di berbagai sektor industri, memberikan performa rotasi yang optimal dengan standar kualitas teknik yang telah teruji.
             </p>
           </div>
 

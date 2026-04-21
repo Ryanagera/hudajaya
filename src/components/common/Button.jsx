@@ -7,19 +7,22 @@ export default function Button({
   disabled = false,
   type = "button",
 }) {
-  const baseStyles = "font-semibold transition-all duration-300 rounded-lg";
+  const baseStyles =
+    "font-base transition-all duration-200 rounded-full tracking-wide";
 
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
+    primary: "bg-blue-700 text-white hover:bg-blue-900 active:bg-blue-800",
     secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 active:bg-gray-400",
     outline:
       "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100",
   };
 
   const sizes = {
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2.5 text-base",
-    lg: "px-6 py-3 text-lg",
+    xs: "px-5 py-2.5 text-xs",
+    sm: "px-6 py-3 text-sm",
+    md: "px-8 py-3.5 text-base",
+    lg: "px-10 py-4 text-lg",
+    xl: "px-12 py-5 text-xl",
   };
 
   const disabledStyles = disabled

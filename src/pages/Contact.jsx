@@ -1,6 +1,6 @@
 import { Container, PageLayout, ActionCard } from "@/components/common";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/constants";
+import { ROUTES } from "../constants/app";
 
 // Assets
 import technicalSupportImg from "@/assets/images/support/technical_support.png";
@@ -48,11 +48,15 @@ export default function Contact() {
                 </p>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5" />
-                  <p className="text-sm font-medium text-gray-700">24/7 technical monitoring</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    24/7 technical monitoring
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5" />
-                  <p className="text-sm font-medium text-gray-700">Engineer direct consultation</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    Engineer direct consultation
+                  </p>
                 </div>
               </div>
             </ActionCard>
@@ -72,11 +76,15 @@ export default function Contact() {
                 </p>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5" />
-                  <p className="text-sm font-medium text-gray-700">Precision manufacturing estimates</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    Precision manufacturing estimates
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5" />
-                  <p className="text-sm font-medium text-gray-700">Detailed component breakdown</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    Detailed component breakdown
+                  </p>
                 </div>
               </div>
             </ActionCard>

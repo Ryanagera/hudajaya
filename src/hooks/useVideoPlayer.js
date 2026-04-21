@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * useVideoPlayer - Manages video playback state and tracking
@@ -42,7 +42,9 @@ export function useVideoPlayer() {
     };
   }, []);
 
-  const togglePlayPause = () => setIsPlaying(!isPlaying);
+  const togglePlayPause = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
 
   return {
     videoRef,

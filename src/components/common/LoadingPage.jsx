@@ -1,3 +1,5 @@
+import logoWhite from "@/assets/images/branding/logohj.png";
+
 export default function LoadingPage() {
   return (
     <>
@@ -8,9 +10,9 @@ export default function LoadingPage() {
         {/* Container */}
         <div className="flex flex-col items-center justify-center gap-8">
           {/* Logo */}
-          <div className="relative w-lg h-lg">
+          <div className="relative w-xs h-xs md:w-lg md:h-lg">
             <img
-              src="/logohj.png"
+              src={logoWhite}
               alt="Loading Logo"
               className="w-full h-full object-contain animate-pulse"
             />

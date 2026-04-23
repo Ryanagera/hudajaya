@@ -128,9 +128,9 @@ function HeroContent() {
       </div>
 
       {/* Bottom Section - Description and CTA */}
-      <div className="flex-1 flex flex-col justify-end pb-20 md:pb-32">
-        <div className="max-w-full md:max-w-lg md:ml-auto">
-          <p className="text-gray-200 text-sm md:text-lg xl:text-xl leading-6 md:leading-7 xl:leading-8 tracking-wide drop-shadow-md mb-4 md:mb-8">
+      <div className="flex-1 flex flex-col justify-end pb-18 md:pb-32 lg:pb-28">
+        <div className="max-w-full md:max-w-lg xl:max-w-xl md:ml-auto">
+          <p className="text-gray-200 text-[11pt] md:text-[14pt] lg:text-lg xl:text-xl leading-[16pt] md:leading-[20pt] xl:leading-8 tracking-wide drop-shadow-md mb-4 md:mb-8">
             {HERO_CONTENT.description}
           </p>
 
@@ -138,8 +138,8 @@ function HeroContent() {
             <Button
               variant="primary"
               size="md"
-              onClick={() => console.log("Explore remanufacturing clicked")}
-              className="group flex items-center justify-center gap-4 md:w-lg md:text-2xl"
+              onClick={() => console.log("Konsultasi Gratis")}
+              className="group flex items-center justify-center gap-4 md:w-sm text-[12pt] md:text-[16pt] lg:w-md"
             >
               {HERO_CONTENT.ctaButton}
               <ChevronRight
@@ -159,11 +159,11 @@ function HeroContent() {
  */
 function ScrollIndicator() {
   return (
-    <div className="absolute bottom-3 md:bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce">
-      <div className="flex flex-col items-center gap-2 text-white text-sm">
+    <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+      <div className="flex flex-col items-center gap-2 text-white text-[8pt] md:text-[14pt]">
         <span>Scroll</span>
         <svg
-          className="w-5 h-5 animate-bounce"
+          className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

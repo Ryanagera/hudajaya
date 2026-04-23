@@ -1,5 +1,5 @@
 import {
-  ChevronDown,
+  ChevronLeft,
   ChevronRight,
   Globe,
   LogIn,
@@ -9,12 +9,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-// Constants
-import {
-  SIDEBAR_BOTTOM_ITEMS,
-  SIDEBAR_CONFIG,
-  SIDEBAR_MAIN_ITEMS,
-} from "@/constants";
+import { SIDEBAR_BOTTOM_ITEMS, SIDEBAR_MAIN_ITEMS } from "@/constants";
 import { PRODUCT_CATEGORIES } from "@/constants/products";
 
 /**
@@ -61,8 +56,6 @@ export default function Sidebar({
     }
   }, [isOpen]);
 
-
-
   const handleMenuToggle = (menuId) => {
     setExpandedMenu(expandedMenu === menuId ? null : menuId);
     setSelectedCategory(null);
@@ -78,11 +71,9 @@ export default function Sidebar({
 
   return (
     <>
-
-
       {/* Sidebar Container */}
       <div
-        className={`fixed left-0 top-0 h-screen w-full md:max-w-xl bg-white shadow-2xl z-[60] transition-transform duration-500 ease-in-out flex flex-col pt-16 md:pt-20 px-6 md:pl-20 md:pr-10 ${
+        className={`fixed left-0 top-0 h-screen w-full md:max-w-lg bg-white shadow-2xl z-60 transition-transform duration-700 ease-in-out flex flex-col pt-16 md:pt-20 px-6 md:pl-20 md:pr-10 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         role="navigation"
@@ -114,7 +105,7 @@ function CloseButton({ onClose, buttonRef }) {
     <button
       ref={buttonRef}
       onClick={onClose}
-      className="absolute right-4 top-4 md:fixed md:right-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md z-[60]"
+      className="absolute right-4 top-4 md:fixed md:right-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md z-60"
       aria-label="Close sidebar"
     >
       <X size={20} className="md:w-6 md:h-6 text-gray-800" />
@@ -148,6 +139,7 @@ function SidebarContent({
           <ProductList
             category={selectedCategory}
             onBack={onBackToCategories}
+            onClose={onClose}
           />
         ) : (
           <>
@@ -218,7 +210,7 @@ function ProductCategories({ onCategorySelect, onBackToMenu }) {
           onClick={() => onBackToMenu()}
           className="flex items-center gap-1 text-gray-700 hover:text-blue-600 font-medium mb-12 transition-colors"
         >
-          <ChevronDown size={18} className="rotate-90" />
+          <ChevronLeft size={18} />
           <span className="text-lg">Menu</span>
         </button>
 
@@ -280,7 +272,7 @@ function ProductCategories({ onCategorySelect, onBackToMenu }) {
 /**
  * ProductList Sub-Component
  */
-function ProductList({ category, onBack }) {
+function ProductList({ category, onBack, onClose }) {
   const navigate = useNavigate();
 
   return (
@@ -292,7 +284,7 @@ function ProductList({ category, onBack }) {
           onClick={onBack}
           className="flex items-center gap-1 text-gray-700 hover:text-blue-600 font-medium mb-12 transition-colors"
         >
-          <ChevronDown size={18} className="rotate-90" />
+          <ChevronLeft size={18} />
           <span className="text-lg">Products</span>
         </button>
 
@@ -314,9 +306,11 @@ function ProductList({ category, onBack }) {
       <nav className="flex-1 overflow-y-auto">
         <div className="divide-y divide-gray-100">
           {category.products.map((product) => (
-            <button
+            <Link
               key={product.id}
+              to={`/products/${product.slug}`}
               className="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors group text-left"
+              onClick={onClose}
             >
               {/* Product Icon */}
               <div className="shrink-0 w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-lg group-hover:bg-blue-100 transition-colors">
@@ -333,7 +327,7 @@ function ProductList({ category, onBack }) {
                 size={18}
                 className="shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors"
               />
-            </button>
+            </Link>
           ))}
         </div>
       </nav>

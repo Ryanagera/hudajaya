@@ -26,6 +26,8 @@ export const VIDEO_CONFIG = {
 export const ROUTES = {
   HOME: "/",
   PRODUCTS: "/products",
+  CATEGORY_PRODUCTS: "/products/category/:slug",
+  PRODUCT_DETAIL: "/products/:slug",
   SERVICES: "/services",
   ABOUT: "/about",
   CONTACT: "/contact",

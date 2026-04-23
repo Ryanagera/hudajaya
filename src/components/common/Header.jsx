@@ -25,9 +25,11 @@ export default function Header() {
 
   // Event Handler
   const toggleMenu = () => {
+    setIsSearchOpen(false);
     setIsMenuOpen((prev) => !prev);
   };
   const toggleSearch = () => {
+    setIsMenuOpen(false);
     setIsSearchOpen((prev) => !prev);
   };
   const handleProductsClick = () => {
@@ -42,8 +44,8 @@ export default function Header() {
 
   // Body scroll lock and accessibility using useEffect
   useEffect(() => {
-    const mainElement = document.querySelector("main");
     const headerElement = document.querySelector("header");
+    const mainElement = document.querySelector("main");
     const footerElement = document.querySelector("footer");
 
     if (isMenuOpen || isSearchOpen) {
@@ -52,23 +54,23 @@ export default function Header() {
       document.documentElement.style.overflow = "hidden";
 
       // Prevent interaction with all background elements
-      if (mainElement) mainElement.setAttribute("inert", "");
       if (headerElement) headerElement.setAttribute("inert", "");
+      if (mainElement) mainElement.setAttribute("inert", "");
       if (footerElement) footerElement.setAttribute("inert", "");
     } else {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-
-      if (mainElement) mainElement.removeAttribute("inert");
+    
       if (headerElement) headerElement.removeAttribute("inert");
+      if (mainElement) mainElement.removeAttribute("inert");
       if (footerElement) footerElement.removeAttribute("inert");
     }
 
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      if (mainElement) mainElement.removeAttribute("inert");
       if (headerElement) headerElement.removeAttribute("inert");
+      if (mainElement) mainElement.removeAttribute("inert");
       if (footerElement) footerElement.removeAttribute("inert");
     };
   }, [isMenuOpen, isSearchOpen]);
@@ -314,7 +316,7 @@ function TopNavigationItems({ shouldHaveDarkHeader, onSearchToggle }) {
               <item.icon size={22} />
               {/* Tooltip on hover */}
               {hoveredIndex === index && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 translate-y-20 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap pointer-events-none z-50">
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 -translate-y-1 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap pointer-events-none z-50">
                   {item.label}
                 </div>
               )}

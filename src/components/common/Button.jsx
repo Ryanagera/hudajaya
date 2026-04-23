@@ -18,11 +18,11 @@ export default function Button({
   };
 
   const sizes = {
-    xs: "px-5 py-2.5 text-xs",
-    sm: "px-6 py-3 text-sm",
-    md: "px-8 py-3.5 text-base",
-    lg: "px-10 py-4 text-lg",
-    xl: "px-12 py-5 text-xl",
+    xs: "px-5 py-2.5 text-[6pt]",
+    sm: "px-6 py-3 text-[8pt]",
+    md: "px-8 py-3.5 text-[12pt]",
+    lg: "px-10 py-4 text-[16pt]",
+    xl: "px-12 py-5 text-[20pt]",
   };
 
   const disabledStyles = disabled

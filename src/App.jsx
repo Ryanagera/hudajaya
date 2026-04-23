@@ -6,6 +6,8 @@ import Contact from "./pages/Contact";
 import FindLocation from "./pages/FindLocation";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import CategoryProducts from "./pages/CategoryProducts";
+import ProductDetail from "./pages/ProductDetail";
 import QuoteRequest from "./pages/QuoteRequest";
 import Services from "./pages/Services";
 
@@ -74,6 +76,11 @@ export default function App() {
           <Route path={ROUTES.CONTACT} element={<Contact />} />
           <Route path={ROUTES.QUOTE} element={<QuoteRequest />} />
           <Route path={ROUTES.PRODUCTS} element={<Products />} />
+          <Route
+            path={ROUTES.CATEGORY_PRODUCTS}
+            element={<CategoryProducts />}
+          />
+          <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
           <Route path={ROUTES.SERVICES} element={<Services />} />
           <Route path={ROUTES.LOCATION} element={<FindLocation />} />
 

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { X, Search } from "lucide-react";
 
-// Constants
-import { SIDEBAR_CONFIG } from "@/constants";
-import { PRODUCT_SEARCH_INDEX } from "@/constants/products";
+import { SIDEBAR_CONFIG } from "../../constants/sidebar";
+import { PRODUCT_SEARCH_INDEX } from "../../constants/products";
 
 /**
  * SearchSidebar Component
@@ -51,10 +51,10 @@ export default function SearchSidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {/* Search Sidebar Container - slides from right */}
+      {/* Search Sidebar Container */}
       <div
-        className={`fixed right-0 top-0 h-screen ${SIDEBAR_CONFIG.WIDTH} bg-white shadow-2xl z-[60] transition-all duration-500 ease-in-out flex flex-col pt-20 px-10 ${
-          isOpen ? "translate-x-0 opacity-100 visible" : "translate-x-full opacity-0 invisible"
+        className={`fixed right-0 top-0 h-screen w-full md:max-w-md bg-white shadow-2xl z-60 transition-transform duration-700 ease-in-out flex flex-col pt-16 md:pt-20 px-6  ${
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         role="search"
         aria-label="Search sidebar"
@@ -64,10 +64,10 @@ export default function SearchSidebar({ isOpen, onClose }) {
         {isOpen && (
           <button
             onClick={onClose}
-            className="fixed left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md"
+            className="absolute right-4 top-4 md:fixed md:-left-12 md:top-1/2 md:-translate-y-1/2 md:translate-x-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center shadow-md z-60"
             aria-label="Close search sidebar"
           >
-            <X size={24} className="text-gray-800" />
+            <X size={20} className="md:w-6 md:h-6 text-gray-800" />
           </button>
         )}
 
@@ -100,7 +100,7 @@ function SearchInputSection({ searchQuery, onSearch, onClear, inputRef }) {
   return (
     <div className="border-b border-gray-200 p-1 pb-6">
       <div className="relative group">
-        <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 group-hover:border-blue-400 group-focus-within:border-blue-500 transition-colors duration-200">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 group-hover:border-blue-600 group-focus-within:border-blue-400 transition-colors duration-200">
           <Search size={20} className="text-gray-400" />
           <input
             ref={inputRef}
@@ -142,24 +142,23 @@ function SearchResultsSection({ results, query, onClose }) {
           </p>
           <div className="space-y-3">
             {results.map((result, index) => (
-              <button
+              <Link
                 key={index}
+                to={result.type === "product" ? `/products/${result.slug}` : `/products`}
                 onClick={onClose}
-                className="w-full text-left p-4 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors group"
+                className="w-full text-left p-4 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors group flex items-start justify-between"
               >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {result.name}
-                    </h3>
-                    <p className="text-xs text-gray-500 mt-1">
-                      {result.type === "category"
-                        ? "Product Category"
-                        : `In: ${result.categoryName}`}
-                    </p>
-                  </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                    {result.name}
+                  </h3>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {result.type === "category"
+                      ? "Product Category"
+                      : `In: ${result.categoryName}`}
+                  </p>
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
         </div>
